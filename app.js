@@ -5,13 +5,11 @@ const apiKey = 	'Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr';
 async function getRandomCities() {
 	try {
 		let group = 50;
-
+		// const proxy = 'https://obscure-mountain-07258.herokuapp.com/';
 		const topCitiesListUrl = `http://dataservice.accuweather.com/currentconditions/v1/topcities/${group}?apikey=${apiKey}`;
 
 		const res = await fetch(topCitiesListUrl);
 		const data = await res.json();
-		// console.log(data);
-		// debugger;
 		const result = [];
 
 		data.map((city) => {
@@ -28,8 +26,8 @@ async function getRandomCities() {
 		});
 
 		selectRandomCity(result, 1);
-		fiveDayForecast(randomCityArr);
 		updateUIWithRandomCity(randomCityArr);
+		fiveDayForecast(randomCityArr);
 	} catch (err) {
 		console.log('getTopCitiesWeather: ', err)
 	}
@@ -103,7 +101,6 @@ function fiveDayForecast(key) {
 			const fiveDayForecastUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${item.cityKey}?apikey=Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr`;
 			const res = await fetch(fiveDayForecastUrl);
 			const data = await res.json();
-			console.log(data);
 			let result = [];
 			data.DailyForecasts.map((day) => {
 				console.log(day);
@@ -128,7 +125,6 @@ function fiveDayForecast(key) {
 function updateUIWithFiveDayForecast(forecastArr) {
 	const fiveDayForecastSection = document.querySelector('.five-day-forecast');
 	forecastArr.forEach((day) => {
-		console.log(day);
 		let dayContainer = document.createElement('div');
 		dayContainer.classList.add('day-container');
 
@@ -144,7 +140,7 @@ function updateUIWithFiveDayForecast(forecastArr) {
 			case 'Slightly clear':
 			case 'Mostly sunny':
 			case 'Sunny':
-			case 'Partly Sunny':
+			case 'Hazy sunshine':
 				weatherIconPhrase.src = '/assets/clear-weather.svg';
 				weatherIconPhrase.classList.add('weather-icon');
 				dayContainer.append(weatherIconPhrase);
@@ -160,7 +156,37 @@ function updateUIWithFiveDayForecast(forecastArr) {
 				break;
 
 			case 'Clouds and sun':
+			case 'Intermittent clouds':
+			case 'Partly sunny':
 				weatherIconPhrase.src = '/assets/clouds-and-sun.svg';
+				weatherIconPhrase.classList.add('weather-icon');
+				dayContainer.append(weatherIconPhrase);
+				break;
+
+			case 'Partly sunny w/ showers':
+				weatherIconPhrase.src = '/assets/partly-sunny-with-rain.svg';
+				weatherIconPhrase.classList.add('weather-icon');
+				dayContainer.append(weatherIconPhrase);
+				break;
+
+			case 'Partly sunny w/ t-storms':
+				weatherIconPhrase.src = '/assets/partly-sunny-with-thunder-storms.svg';
+				weatherIconPhrase.classList.add('weather-icon');
+				dayContainer.append(weatherIconPhrase);
+				break;
+
+			case 'Thunderstorms':
+			case 'Mostly cloudy w/ t-storms':
+				weatherIconPhrase.src = '/assets/thunder-storms.svg';
+				weatherIconPhrase.classList.add('weather-icon');
+				dayContainer.append(weatherIconPhrase);
+				break;
+
+			case 'Dreary':
+			case 'Rain':
+			case 'Showers':
+			case 'Mostly cloud w/ showers':
+				weatherIconPhrase.src = '/assets/rain.svg';
 				weatherIconPhrase.classList.add('weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				break;
@@ -177,6 +203,8 @@ function updateUIWithFiveDayForecast(forecastArr) {
 		fiveDayForecastSection.append(dayContainer);
 	})
 }
+
+
 
 function updateDate() {
 	const date = new Date();
