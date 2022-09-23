@@ -5,7 +5,6 @@ const apiKey = 	'Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr';
 async function getRandomCities() {
 	try {
 		let group = 50;
-		// const proxy = 'https://obscure-mountain-07258.herokuapp.com/';
 		const topCitiesListUrl = `http://dataservice.accuweather.com/currentconditions/v1/topcities/${group}?apikey=${apiKey}`;
 
 		const res = await fetch(topCitiesListUrl);
@@ -49,13 +48,14 @@ function updateUIWithRandomCity() {
 
 		// create container and elements for the city temperature & weather status
 		let cityTempAndWeatherTextContainer = document.createElement('div');
-		cityTempAndWeatherTextContainer.classList.add('cityTempAndWeatherTextContainer');
+		cityTempAndWeatherTextContainer.classList.add('city-temp-and-weather-text-container');
 		let cityTemp = document.createElement('p');
 		cityTemp.innerText = `${city.cityTemp.Value} \u2109`;
 		cityTemp.classList.add('city-temp');
 		let weatherText = document.createElement('p');
 		weatherText.innerText = city.weatherText;
 		weatherText.classList.add('weather-text');
+		console.log(city.weatherText);
 
 		// background images based on weather text
 		let weatherIcon = document.createElement('img');
@@ -102,6 +102,7 @@ function fiveDayForecast(key) {
 			const res = await fetch(fiveDayForecastUrl);
 			const data = await res.json();
 			let result = [];
+			console.log(data);
 			data.DailyForecasts.map((day) => {
 				console.log(day);
 				let date = day.Date.slice(0, 10);
@@ -115,6 +116,7 @@ function fiveDayForecast(key) {
 					iconPhrase,
 				})
 			})
+			// console.log(result);
 			updateUIWithFiveDayForecast(result);
 		})
 	} catch (err) {
@@ -142,7 +144,7 @@ function updateUIWithFiveDayForecast(forecastArr) {
 			case 'Sunny':
 			case 'Hazy sunshine':
 				weatherIconPhrase.src = '/assets/clear-weather.svg';
-				weatherIconPhrase.classList.add('weather-icon');
+				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				fiveDayForecastSection.append(dayContainer);
 				break;
@@ -151,7 +153,7 @@ function updateUIWithFiveDayForecast(forecastArr) {
 			case 'Mostly cloudy':
 			case 'Partly cloudy':
 				weatherIconPhrase.src = '/assets/cloudy-weather.svg';
-				weatherIconPhrase.classList.add('weather-icon');
+				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				break;
 
@@ -159,26 +161,26 @@ function updateUIWithFiveDayForecast(forecastArr) {
 			case 'Intermittent clouds':
 			case 'Partly sunny':
 				weatherIconPhrase.src = '/assets/clouds-and-sun.svg';
-				weatherIconPhrase.classList.add('weather-icon');
+				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				break;
 
 			case 'Partly sunny w/ showers':
 				weatherIconPhrase.src = '/assets/partly-sunny-with-rain.svg';
-				weatherIconPhrase.classList.add('weather-icon');
+				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				break;
 
 			case 'Partly sunny w/ t-storms':
 				weatherIconPhrase.src = '/assets/partly-sunny-with-thunder-storms.svg';
-				weatherIconPhrase.classList.add('weather-icon');
+				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				break;
 
 			case 'Thunderstorms':
 			case 'Mostly cloudy w/ t-storms':
 				weatherIconPhrase.src = '/assets/thunder-storms.svg';
-				weatherIconPhrase.classList.add('weather-icon');
+				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				break;
 
@@ -187,17 +189,17 @@ function updateUIWithFiveDayForecast(forecastArr) {
 			case 'Showers':
 			case 'Mostly cloud w/ showers':
 				weatherIconPhrase.src = '/assets/rain.svg';
-				weatherIconPhrase.classList.add('weather-icon');
+				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				break;
 		}
 
 		let highTemp = document.createElement('p');
 		highTemp.classList.add('high-temp');
-		highTemp.innerText = `High: ${day.highTemp}`;
+		highTemp.innerText = `High: ${day.highTemp} \u2109`;
 		let lowTemp = document.createElement('p');
 		lowTemp.classList.add('low-temp');
-		lowTemp.innerText = `Low: ${day.lowTemp}`;
+		lowTemp.innerText = `Low: ${day.lowTemp} \u2109`;
 		dayContainer.append(highTemp, lowTemp);
 
 		fiveDayForecastSection.append(dayContainer);
