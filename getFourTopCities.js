@@ -17,11 +17,9 @@ const fourPopularCities = [
 
 ]
 
-async function getFourPopularCitiesCurrentConditions() {
-	try {
-		// debugger;
-
-		fourPopularCities.map(async (cities) => {
+function getFourPopularCitiesCurrentConditions() {
+	fourPopularCities.map(async (cities) => {
+		try {
 			const result = [];
 			const searchCityUrl = `http://dataservice.accuweather.com/currentconditions/v1/${cities.cityKey}?apikey=${apiKey}`;
 			const res = await fetch(searchCityUrl);
@@ -37,10 +35,10 @@ async function getFourPopularCitiesCurrentConditions() {
 			})
 			console.log(result);
 			updateUIWithFourPopularCities(result);
-		});
-	} catch (err) {
-		console.log('getFourPopularCities: ', err);
-	}
+		} catch (err) {
+			console.log('getFourPopularCities: ', err);
+		}
+	});
 }
 
 function updateUIWithFourPopularCities(fourCities) {
@@ -64,7 +62,7 @@ function updateUIWithFourPopularCities(fourCities) {
 			case 'Slightly clear':
 			case 'Mostly sunny':
 			case 'Sunny':
-			case 'Partly Sunny':
+			case 'Hazy sunshine':
 				fourCitiesWeatherIcon.src = '/assets/clear-weather.svg';
 				fourCitiesWeatherIcon.classList.add('four-cities-weather-icon');
 				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon);
@@ -79,9 +77,39 @@ function updateUIWithFourPopularCities(fourCities) {
 				break;
 
 			case 'Clouds and sun':
+			case 'Intermittent clouds':
+			case 'Partly sunny':
 				fourCitiesWeatherIcon.src = '/assets/clouds-and-sun.svg';
 				fourCitiesWeatherIcon.classList.add('four-cities-weather-icon');
 				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon);
+				break;
+
+			case 'Partly sunny w/ showers':
+				fourCitiesWeatherIcon.src = '/assets/partly-sunny-with-rain.svg';
+				fourCitiesWeatherIcon.classList.add('four-cities-weather-icon');
+				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon)
+				break;
+
+			case 'Partly sunny w/ t-storms':
+				fourCitiesWeatherIcon.src = '/assets/partly-sunny-with-thunder-storms.svg';
+				fourCitiesWeatherIcon.classList.add('four-cities-weather-icon');
+				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon)
+				break;
+
+			case 'Thunderstorms':
+			case 'Mostly cloudy w/ t-storms':
+				fourCitiesWeatherIcon.src = '/assets/thunder-storms.svg';
+				fourCitiesWeatherIcon.classList.add('four-cities-weather-icon');
+				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon)
+				break;
+
+			case 'Dreary':
+			case 'Rain':
+			case 'Showers':
+			case 'Mostly cloud w/ showers':
+				fourCitiesWeatherIcon.src = '/assets/rain.svg';
+				fourCitiesWeatherIcon.classList.add('four-cities-weather-icon');
+				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon)
 				break;
 		}
 
