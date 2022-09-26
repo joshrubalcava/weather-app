@@ -73,7 +73,7 @@ function updateUIWithSearchCity(searchCityData) {
 			case 'Slightly clear':
 			case 'Mostly sunny':
 			case 'Sunny':
-			case 'Partly Sunny':
+			case 'Hazy sunshine':
 				weatherIcon.src = '/assets/clear-weather.svg';
 				break;
 
@@ -84,7 +84,38 @@ function updateUIWithSearchCity(searchCityData) {
 				break;
 
 			case 'Clouds and sun':
+			case 'Intermittent clouds':
+			case 'Partly sunny':
+			case 'Some clouds':
 				weatherIcon.src = '/assets/clouds-and-sun.svg';
+				break;
+			case 'Partly sunny w/ showers':
+				weatherIcon.src = '/assets/partly-sunny-with-rain.svg';
+				break;
+
+			case 'Partly sunny w/ t-storms':
+				weatherIcon.src = '/assets/partly-sunny-with-thunder-storms.svg';
+				break;
+
+			case 'Thunderstorms':
+			case 'Mostly cloudy w/ t-storms':
+				weatherIcon.src = '/assets/thunder-storms.svg';
+				break;
+
+			case 'Dreary':
+			case 'Rain':
+			case 'Showers':
+			case 'Mostly cloudy w/ showers':
+				weatherIcon.src = '/assets/rain.svg';
+				break;
+
+			case 'Light fog':
+				weatherIcon.src = '/assets/slight-fog.svg';
+				break;
+
+			case 'Fog':
+			case 'Heavy fog':
+				weatherIcon.src = '/assets/foggy.svg';
 				break;
 		}
 	})
@@ -97,7 +128,6 @@ function searchCityFiveDayForecastUI(cityKey) {
 		const data = await res.json();
 		let result = [];
 		data.DailyForecasts.map((day) => {
-			console.log(day);
 			let date = day.Date.slice(0, 10);
 			let highTemp = day.Temperature.Maximum.Value
 			let lowTemp = day.Temperature.Minimum.Value;
@@ -109,13 +139,12 @@ function searchCityFiveDayForecastUI(cityKey) {
 				iconPhrase,
 			})
 		})
-		// console.log(result);
 		updateFiveDayForecastWithSearchCity(result);
 	})
 }
 
 function updateFiveDayForecastWithSearchCity(searchCityData) {
-	let date = document.querySelector('.forecastDate');
+	let date = document.querySelector('.forecast-date');
 	date.innerText = searchCityData.date;
 
 	let weatherIconPhrase = document.querySelector('.five-day-weather-icon');
@@ -138,6 +167,7 @@ function updateFiveDayForecastWithSearchCity(searchCityData) {
 		case 'Clouds and sun':
 		case 'Intermittent clouds':
 		case 'Partly sunny':
+		case 'Some Clouds':
 			weatherIconPhrase.src = '/assets/clouds-and-sun.svg';
 			break;
 
@@ -164,6 +194,6 @@ function updateFiveDayForecastWithSearchCity(searchCityData) {
 
 	let highTemp = document.querySelector('.high-temp');
 	highTemp.innerText = `High: ${searchCityData.highTemp} \u2109`;
-	let lowTemp = document.querySelector('low-temp');
+	let lowTemp = document.querySelector('.low-temp');
 	lowTemp.innerText = `Low: ${searchCityData.lowTemp} \u2109`;
 }

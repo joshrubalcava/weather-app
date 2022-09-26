@@ -24,7 +24,6 @@ function getFourPopularCitiesCurrentConditions() {
 			const searchCityUrl = `http://dataservice.accuweather.com/currentconditions/v1/${cities.cityKey}?apikey=${apiKey}`;
 			const res = await fetch(searchCityUrl);
 			const data = await res.json();
-			console.log(data[0]);
 			let name = cities.cityName;
 			let cityTemp = data[0].Temperature.Imperial.Value;
 			let weatherText = data[0].WeatherText;
@@ -33,7 +32,6 @@ function getFourPopularCitiesCurrentConditions() {
 				cityTemp,
 				weatherText,
 			})
-			console.log(result);
 			updateUIWithFourPopularCities(result);
 		} catch (err) {
 			console.log('getFourPopularCities: ', err);
@@ -79,6 +77,7 @@ function updateUIWithFourPopularCities(fourCities) {
 			case 'Clouds and sun':
 			case 'Intermittent clouds':
 			case 'Partly sunny':
+			case 'Some clouds':
 				fourCitiesWeatherIcon.src = '/assets/clouds-and-sun.svg';
 				fourCitiesWeatherIcon.classList.add('four-cities-weather-icon');
 				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon);
@@ -106,10 +105,23 @@ function updateUIWithFourPopularCities(fourCities) {
 			case 'Dreary':
 			case 'Rain':
 			case 'Showers':
-			case 'Mostly cloud w/ showers':
+			case 'Mostly cloudy w/ showers':
 				fourCitiesWeatherIcon.src = '/assets/rain.svg';
 				fourCitiesWeatherIcon.classList.add('four-cities-weather-icon');
 				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon)
+				break;
+
+			case 'Light fog':
+				fourCitiesWeatherIcon.src = '/assets/slight-fog.svg';
+				fourCitiesWeatherIcon.classList.add('five-day-weather-icon');
+				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon);
+				break;
+
+			case 'Fog':
+			case 'Heavy fog':
+				fourCitiesWeatherIcon.src = '/assets/foggy.svg';
+				fourCitiesWeatherIcon.classList.add('five-day-weather-icon');
+				cityTempAndWeatherTextContainer.append(fourCitiesWeatherIcon);
 				break;
 		}
 

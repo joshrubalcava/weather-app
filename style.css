@@ -14,7 +14,6 @@ body {
 }
 
 .header {
-    /*background: rgba(30, 139, 195, 1);*/
     background: rgb(0,212,255);
     display: flex;
     justify-content: end;
@@ -48,7 +47,6 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /*flex-wrap: wrap;*/
     padding-bottom: 2rem;
 }
 
@@ -65,7 +63,7 @@ body {
 
 .city-name {
     margin-top: 1rem;
-    margin-bottom: 1.25rem;
+    /*margin-bottom: 1rem;*/
     color: rgba(37, 41, 88, 1);
 }
 
@@ -106,7 +104,6 @@ body {
 }
 
 .five-day-forecast {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -129,16 +126,31 @@ body {
     box-shadow: 10px 10px 30px -6px rgba(0, 0, 0, 0.75);
 }
 
+.forecast-date {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.five-day-weather-icon {
+    width: 7rem;
+    margin-bottom: 1.5rem;
+}
+
+.high-temp, .low-temp {
+    font-size: 1.25rem;
+}
+
 .four-popular-cities {
     display: flex;
     justify-content: center;
+    /*width: 100%;*/
     background: whitesmoke;
 }
 
 .four-popular-cities-container {
     margin: 1rem;
-    min-width: 15rem;
-    height: 15rem;
+    width: 19.3rem;
+    max-height: 15rem;
     background: whitesmoke;
     border: none;
     border-radius: 10px;
@@ -146,7 +158,7 @@ body {
 }
 
 .four-cities-name {
-    font-size: 2rem;
+    font-size: 1.25rem;
     margin-top: .75rem;
     margin-left: .75rem;
 }
@@ -164,7 +176,8 @@ body {
 }
 
 .four-cities-weather-icon {
- width: 5rem;
+    width: 5rem;
+    margin-right: 1rem;
 }
 
 .four-cities-weather-text {
@@ -173,30 +186,108 @@ body {
     font-size: 1.25rem;
 }
 
-/* media queries */
+ /* media queries */
+
+/* small screens/laptops: less than 1000px */
 @media screen and (max-width: 1000px) {
+    .search-cities {
+        width: 175px;
+    }
+
+    .city-name {
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+
+    .weather-icon {
+        width: 150px;
+        height: 150px;
+    }
+
+    .city-temp {
+        font-size: 3.25rem;
+    }
+
+    .weather-text {
+        font-size: 2rem;
+    }
+
+    .date {
+        font-size: 1.15rem;
+        padding: 1rem 0;
+    }
+
     .five-day-forecast {
-        margin-left: 1rem;
-        padding-bottom: 2rem;
+        margin-bottom: 20px;
+        display: flex;
         justify-content: flex-start;
-        overflow-x: auto;
+        overflow: scroll;
+    }
+
+    .day-container {
+        margin-left: 3px;
+        margin-bottom: 1rem;
+        max-height: 215px;
+        max-width: 200px;
+    }
+
+    .forecast-date {
+        font-size: 1rem;
+        padding: 5px 0;
+    }
+
+    .high-temp, .low-temp {
+        font-size: 1rem;
+    }
+
+    .low-temp {
+        margin-bottom: 1rem;
+    }
+
+    .five-day-weather-icon {
+        max-height: 75px;
+        max-width: 75px;
     }
 
     .four-popular-cities {
+        display: flex;
         justify-content: flex-start;
-        overflow-x: auto;
+        overflow: scroll;
+    }
+
+    .four-popular-cities-container {
+        margin: 1rem 1.25rem 1rem 0;
+        max-height: 175px;
+        min-width: 13rem;
+    }
+
+    .four-cities-name {
+        font-size: 1.25rem;
+    }
+
+    .city-temp-and-weather-icon-container {
+        padding-top: 1rem;
+    }
+
+    .four-cities-temp {
+        font-size: 1.5rem;
+    }
+
+    .four-cities-weather-icon {
+        width: 2.75rem;
+        margin-right: 1rem;
+    }
+
+    .four-cities-weather-text {
+        font-size: 1.25rem;
+        padding-bottom: 1rem;
     }
 }
 
 /* tablets: 768px or less */
 @media screen and (max-width: 768px) {
-
-}
-
-/* mobile devices: 375px or less */
-@media screen and (max-width: 375px) {
     .search-cities {
-        width: 100px;
+        width: 150px;
     }
 
     .city-name {
@@ -229,8 +320,8 @@ body {
     }
 
     .day-container {
-        margin-left: 3px;
-        max-height: 150px;
+        margin: 0 .5rem .5rem 0;
+        max-height: 200px;
         max-width: 150px;
     }
 
@@ -240,9 +331,9 @@ body {
     }
 
     .four-popular-cities-container {
-        margin: 7px 3px;
-        max-height: 150px;
-        max-width: 50%;
+        margin: 0 .5rem .75rem 0;
+        max-height: 200px;
+        min-width: 192px;
     }
 
     .four-cities-name {
@@ -264,5 +355,16 @@ body {
 
     .four-cities-weather-text {
         font-size: 1rem;
+    }
+}
+
+/* mobile devices: 375px or less */
+@media screen and (max-width: 375px) {
+    .search-cities {
+        width: 100px;
+    }
+
+    .search-cities::placeholder {
+        font-size: 10px;
     }
 }

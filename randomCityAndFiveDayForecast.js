@@ -55,7 +55,6 @@ function updateUIWithRandomCity(randomCityData) {
 		let weatherText = document.createElement('p');
 		weatherText.innerText = city.weatherText;
 		weatherText.classList.add('weather-text');
-		console.log(city.weatherText);
 
 		// background images based on weather text
 		let weatherIcon = document.createElement('img');
@@ -82,6 +81,7 @@ function updateUIWithRandomCity(randomCityData) {
 			case 'Clouds and sun':
 			case 'Intermittent clouds':
 			case 'Partly sunny':
+			case 'Some clouds':
 				weatherIcon.src = '/assets/clouds-and-sun.svg';
 				weatherIcon.classList.add('weather-icon');
 				cityTempAndWeatherTextContainer.append(weatherIcon);
@@ -109,9 +109,22 @@ function updateUIWithRandomCity(randomCityData) {
 			case 'Dreary':
 			case 'Rain':
 			case 'Showers':
-			case 'Mostly cloud w/ showers':
+			case 'Mostly cloudy w/ showers':
 				weatherIcon.src = '/assets/rain.svg';
 				weatherIcon.classList.add('weather-icon');
+				cityTempAndWeatherTextContainer.append(weatherIcon);
+				break;
+
+			case 'Light fog':
+				weatherIcon.src = '/assets/slight-fog.svg';
+				weatherIcon.classList.add('five-day-weather-icon');
+				cityTempAndWeatherTextContainer.append(weatherIcon);
+				break;
+
+			case 'Fog':
+			case 'Heavy fog':
+				weatherIcon.src = '/assets/foggy.svg';
+				weatherIcon.classList.add('five-day-weather-icon');
 				cityTempAndWeatherTextContainer.append(weatherIcon);
 				break;
 		}
@@ -132,9 +145,7 @@ function fiveDayForecast(key) {
 			const res = await fetch(fiveDayForecastUrl);
 			const data = await res.json();
 			let result = [];
-			console.log(data);
 			data.DailyForecasts.map((day) => {
-				console.log(day);
 				let date = day.Date.slice(0, 10);
 				let highTemp = day.Temperature.Maximum.Value
 				let lowTemp = day.Temperature.Minimum.Value;
@@ -146,7 +157,6 @@ function fiveDayForecast(key) {
 					iconPhrase,
 				})
 			})
-			// console.log(result);
 			updateUIWithFiveDayForecast(result);
 		} catch (err) {
 			console.log('fiveDayForecast: ', err);
@@ -161,7 +171,7 @@ function updateUIWithFiveDayForecast(forecastArr) {
 		dayContainer.classList.add('day-container');
 
 		let date = document.createElement('p');
-		date.classList.add('forecastDate');
+		date.classList.add('forecast-date');
 		date.innerText = day.date;
 		dayContainer.append(date);
 
@@ -190,6 +200,7 @@ function updateUIWithFiveDayForecast(forecastArr) {
 			case 'Clouds and sun':
 			case 'Intermittent clouds':
 			case 'Partly sunny':
+			case 'Some clouds':
 				weatherIconPhrase.src = '/assets/clouds-and-sun.svg';
 				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
@@ -217,8 +228,21 @@ function updateUIWithFiveDayForecast(forecastArr) {
 			case 'Dreary':
 			case 'Rain':
 			case 'Showers':
-			case 'Mostly cloud w/ showers':
+			case 'Mostly cloudy w/ showers':
 				weatherIconPhrase.src = '/assets/rain.svg';
+				weatherIconPhrase.classList.add('five-day-weather-icon');
+				dayContainer.append(weatherIconPhrase);
+				break;
+
+			case 'Light fog':
+				weatherIconPhrase.src = '/assets/slight-fog.svg';
+				weatherIconPhrase.classList.add('five-day-weather-icon');
+				dayContainer.append(weatherIconPhrase);
+				break;
+
+			case 'Fog':
+			case 'Heavy fog':
+				weatherIconPhrase.src = '/assets/foggy.svg';
 				weatherIconPhrase.classList.add('five-day-weather-icon');
 				dayContainer.append(weatherIconPhrase);
 				break;
