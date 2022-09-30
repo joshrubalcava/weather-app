@@ -28,7 +28,7 @@ async function getRandomCities() {
 		updateUIWithRandomCity(randomCityArr);
 		fiveDayForecast(randomCityArr);
 	} catch (err) {
-		console.log('getTopCitiesWeather: ', err)
+		console.log('getRandomCitiesWeather: ', err)
 	}
 }
 

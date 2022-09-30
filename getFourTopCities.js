@@ -41,7 +41,6 @@ function getFourPopularCitiesCurrentConditions() {
 
 function updateUIWithFourPopularCities(fourCities) {
 	fourCities.forEach((city) => {
-		// console.log(city);
 		const fourPopularCitiesSection = document.querySelector('.four-popular-cities');
 		const cityContainer = document.createElement('div');
 		cityContainer.classList.add('four-popular-cities-container');
@@ -53,6 +52,7 @@ function updateUIWithFourPopularCities(fourCities) {
 		let cityTempAndWeatherTextContainer = document.createElement('div');
 		cityTempAndWeatherTextContainer.classList.add('city-temp-and-weather-icon-container');
 
+		// background images based on weather text
 		let fourCitiesWeatherIcon = document.createElement('img');
 		switch (city.weatherText) {
 			case 'Mostly clear':

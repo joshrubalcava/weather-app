@@ -37,7 +37,6 @@ function getSearchCityCurrentWeatherConditions(cityKey) {
 
 			const res = await fetch(searchKeyUrl);
 			const data = await res.json();
-			// console.log(data);
 			data.forEach((cityData) => {
 				let name = searchCity.cityName;
 				let cityTemp = cityData.Temperature.Imperial.Value;
@@ -66,6 +65,7 @@ function updateUIWithSearchCity(searchCityData) {
 		let weatherText = document.querySelector('.weather-text');
 		weatherText.innerText = city.weatherText;
 
+		// update weather icons for searched city based on weather text
 		let weatherIcon = document.querySelector('.weather-icon');
 		switch (city.weatherText) {
 			case 'Mostly clear':
@@ -122,6 +122,8 @@ function updateUIWithSearchCity(searchCityData) {
 }
 
 function searchCityFiveDayForecastUI(cityKey) {
+	const fiveDayForecast = document.querySelector('.five-day-forecast');
+	fiveDayForecast.innerHTML = '';
 	cityKey.map(async (searchCity) => {
 		const fiveDayForecastUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${searchCity.cityKey}?apikey=Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr`;
 		const res = await fetch(fiveDayForecastUrl);
@@ -139,61 +141,7 @@ function searchCityFiveDayForecastUI(cityKey) {
 				iconPhrase,
 			})
 		})
-		updateFiveDayForecastWithSearchCity(result);
+		updateUIWithFiveDayForecast(result)
+		// updateFiveDayForecastWithSearchCity(result);
 	})
-}
-
-function updateFiveDayForecastWithSearchCity(searchCityData) {
-	let date = document.querySelector('.forecast-date');
-	date.innerText = searchCityData.date;
-
-	let weatherIconPhrase = document.querySelector('.five-day-weather-icon');
-	switch (searchCityData.iconPhrase) {
-		case 'Mostly clear':
-		case 'Clear':
-		case 'Slightly clear':
-		case 'Mostly sunny':
-		case 'Sunny':
-		case 'Hazy sunshine':
-			weatherIconPhrase.src = '/assets/clear-weather.svg';
-			break;
-
-		case 'Cloudy':
-		case 'Mostly cloudy':
-		case 'Partly cloudy':
-			weatherIconPhrase.src = '/assets/cloudy-weather.svg';
-			break;
-
-		case 'Clouds and sun':
-		case 'Intermittent clouds':
-		case 'Partly sunny':
-		case 'Some Clouds':
-			weatherIconPhrase.src = '/assets/clouds-and-sun.svg';
-			break;
-
-		case 'Partly sunny w/ showers':
-			weatherIconPhrase.src = '/assets/partly-sunny-with-rain.svg';
-			break;
-
-		case 'Partly sunny w/ t-storms':
-			weatherIconPhrase.src = '/assets/partly-sunny-with-thunder-storms.svg';
-			break;
-
-		case 'Thunderstorms':
-		case 'Mostly cloudy w/ t-storms':
-			weatherIconPhrase.src = '/assets/thunder-storms.svg';
-			break;
-
-		case 'Dreary':
-		case 'Rain':
-		case 'Showers':
-		case 'Mostly cloud w/ showers':
-			weatherIconPhrase.src = '/assets/rain.svg';
-			break;
-	}
-
-	let highTemp = document.querySelector('.high-temp');
-	highTemp.innerText = `High: ${searchCityData.highTemp} \u2109`;
-	let lowTemp = document.querySelector('.low-temp');
-	lowTemp.innerText = `Low: ${searchCityData.lowTemp} \u2109`;
 }
