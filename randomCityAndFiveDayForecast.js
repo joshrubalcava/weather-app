@@ -5,7 +5,7 @@ const apiKey = 	'Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr';
 async function getRandomCities() {
 	try {
 		let group = 50;
-		const topCitiesListUrl = `http://dataservice.accuweather.com/currentconditions/v1/topcities/${group}?apikey=${apiKey}`;
+		const topCitiesListUrl = `https://dataservice.accuweather.com/currentconditions/v1/topcities/${group}?apikey=${apiKey}`;
 
 		const res = await fetch(topCitiesListUrl);
 		const data = await res.json();
@@ -141,7 +141,7 @@ function updateUIWithRandomCity(randomCityData) {
 function fiveDayForecast(key) {
 	key.map(async (item) => {
 		try {
-			const fiveDayForecastUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${item.cityKey}?apikey=Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr`;
+			const fiveDayForecastUrl = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${item.cityKey}?apikey=Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr`;
 			const res = await fetch(fiveDayForecastUrl);
 			const data = await res.json();
 			let result = [];

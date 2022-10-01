@@ -7,7 +7,7 @@ async function getCityIdFromSearch(evt) {
 	try {
 		let searchCityData =[];
 
-		const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${searchQuery.value}`;
+		const searchCityUrl = `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${searchQuery.value}`;
 
 		const res = await fetch(searchCityUrl);
 		const data = await res.json();
@@ -33,7 +33,7 @@ function getSearchCityCurrentWeatherConditions(cityKey) {
 	cityKey.map(async (searchCity) => {
 		try {
 			const result = [];
-			const searchKeyUrl = `http://dataservice.accuweather.com/currentconditions/v1/${searchCity.cityKey}?apikey=${apiKey}`;
+			const searchKeyUrl = `https://dataservice.accuweather.com/currentconditions/v1/${searchCity.cityKey}?apikey=${apiKey}`;
 
 			const res = await fetch(searchKeyUrl);
 			const data = await res.json();
@@ -125,7 +125,7 @@ function searchCityFiveDayForecastUI(cityKey) {
 	const fiveDayForecast = document.querySelector('.five-day-forecast');
 	fiveDayForecast.innerHTML = '';
 	cityKey.map(async (searchCity) => {
-		const fiveDayForecastUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${searchCity.cityKey}?apikey=Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr`;
+		const fiveDayForecastUrl = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${searchCity.cityKey}?apikey=Bc3nqO7yPqguzSjoMWQLiIQmSmlGdZFr`;
 		const res = await fetch(fiveDayForecastUrl);
 		const data = await res.json();
 		let result = [];

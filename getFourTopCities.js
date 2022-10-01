@@ -21,7 +21,7 @@ function getFourPopularCitiesCurrentConditions() {
 	fourPopularCities.map(async (cities) => {
 		try {
 			const result = [];
-			const searchCityUrl = `http://dataservice.accuweather.com/currentconditions/v1/${cities.cityKey}?apikey=${apiKey}`;
+			const searchCityUrl = `https://dataservice.accuweather.com/currentconditions/v1/${cities.cityKey}?apikey=${apiKey}`;
 			const res = await fetch(searchCityUrl);
 			const data = await res.json();
 			let name = cities.cityName;
